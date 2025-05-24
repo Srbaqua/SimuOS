@@ -1,0 +1,27 @@
+*{
+  margin: 0.5px;
+  padding: 0.5px; 
+  background-color: black;
+}
+
+.link-hover{
+  color: #da1212;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+    }
+.link-hover:hover {
+  color: #0dcaf0;
+  transform: scale(1.1);
+}
+
+.head:hover{
+  color: #0dcaf0;
+  transition: color 0.3s ease, transform 0.3s ease;
+  transform: scale(1.2) ;
+}
+
+.forms{
+  margin-left: 10px;
+  padding: 2px;
+  
+}
