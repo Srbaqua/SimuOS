@@ -8,18 +8,19 @@ const Forms = () => {
     <label for="autoSizingInput">Process</label>
     <input type="text" className="form-control" id="processName" placeholder='Process Name'/>
   </div>
+
   <div className="col-auto">
     <label for="autoSizingInputGroup">Arrival Time</label>
     <div className="input-group">
       <div className="input-group-text"></div>
-      <input type="text" className="form-control" id="autoSizingInputGroup"/>
+      <input type="number" className="form-control" id="autoSizingInputGroup"/>
     </div>
   </div>
   <div className="col-auto">
     <label for="autoSizingInputGroup">Burst Time</label>
     <div className="input-group">
       <div className="input-group-text"></div>
-      <input type="text" className="form-control" id="autoSizingInputGroup"/>
+      <input type="number" className="form-control" id="autoSizingInputGroup"/>
     </div>
   </div>
   <div className="col-auto">
@@ -44,7 +45,7 @@ const Forms = () => {
     <div className="form-check">
       <input className="form-check-input" type="checkbox" id="autoSizingCheck"/>
       <label className="form-check-label" for="autoSizingCheck">
-        Remember me
+        Priority
       </label>
     </div>
   </div>
