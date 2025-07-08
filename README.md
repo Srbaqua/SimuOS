@@ -1,4 +1,4 @@
-p align="center">
+<p align="center">
   <img src="https://img.icons8.com/external-flat-icons-inmotus-design/100/000000/external-scheduler-automation-flat-icons-inmotus-design.png" alt="SimuOS Logo" width="100"/>
 </p>
 
