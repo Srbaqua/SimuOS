@@ -1,6 +1,9 @@
+import React from 'react';
+
 function MetricsTable({ metrics }) {
   if (!metrics) return null;
   const pids = Object.keys(metrics);
+
   return (
     <table>
       <thead>

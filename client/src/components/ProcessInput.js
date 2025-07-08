@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-
-const defaultProcess = { pid: '', arrivalTime: 0, burstTimes: [1], ioTimes: [], priority: 0 };
+import React from 'react';
 
 function ProcessInput({ processes, setProcesses }) {
-  const addProcess = () => setProcesses([...processes, { ...defaultProcess }]);
+  const addProcess = () => setProcesses([...processes, { pid: '', arrivalTime: 0, burstTimes: [1], priority: 0 }]);
   const removeProcess = idx => setProcesses(processes.filter((_, i) => i !== idx));
   const updateProcess = (idx, field, value) => {
     const updated = [...processes];

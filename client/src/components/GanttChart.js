@@ -1,16 +1,22 @@
+import React from 'react';
 import { Chart } from "react-google-charts";
 
 function GanttChart({ schedule }) {
-  // Transform schedule to Google Charts format
+  if (!schedule || schedule.length === 0) return <div>No schedule data.</div>;
+
   const data = [
     [
       { type: "string", id: "Process" },
       { type: "string", id: "Task" },
       { type: "number", id: "Start" },
-      { type: "number", id: "End" },
+      { type: "number", id: "End" }
     ],
-    // Example: ["P1", "P1", 0, 5]
-    ...schedule.map(item => [item.pid, item.pid, item.start, item.end]),
+    ...schedule.map(item => [
+      item.pid,
+      item.pid,
+      item.start,
+      item.end
+    ])
   ];
 
   return (
@@ -23,4 +29,5 @@ function GanttChart({ schedule }) {
     />
   );
 }
+
 export default GanttChart;
