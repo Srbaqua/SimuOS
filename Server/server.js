@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const simulationRoutes = require('./routes/Simulation');
+const simulationRoutes = require('./routes/simulation');
+
 
 const app = express();
 const PORT = 5000;
@@ -17,6 +18,7 @@ mongoose.connect('mongodb://localhost:27017/simuos', {
 
 // Use simulation routes
 app.use('/api', simulationRoutes);
+
 
 const processRoutes = require('./routes/processes');
 app.use('/api/processes', processRoutes);

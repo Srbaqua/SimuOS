@@ -20,5 +20,5 @@ const SimulationSchema = new mongoose.Schema({
 });
 
 const Simulation = mongoose.model('Simulation', SimulationSchema);
-
 module.exports = Simulation;
+

@@ -1,30 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const Simulation = require('../models/Simulation');
-
-// Import your algorithms
+// --- FCFS Algorithm ---
 const fcfs = require('../algorithms/fcfs');
-const sjf = require('../algorithms/sjf');
-const srtf = require('../algorithms/srtf');
-// const sjf = require('../algorithms/sjf');
-// ... import other algorithms
 
+// --- SJF Algorithm (Non-preemptive) ---
+const sjf = require('../algorithms/sjf');
+
+// --- SRTF Algorithm (Preemptive SJF) ---
+const srtf = require('../algorithms/srtf');
+
+// --- RR Algorithm---
+const rr = require('../algorithms/rr');
+
+// --- Algorithm Map ---
 const algorithms = {
   FCFS: fcfs,
   SJF: sjf,
   SRTF: srtf,
-  // LJF: ljf,
-  // LRTF: lrtf,
-//   RR: rr,
-  // HRRN: hrrn,
-  // PNP: pnp,
-  // PP: pp,
+  RR:rr,
+  // Add more algorithms here as needed
 };
 
+// --- Simulation API Route ---
 router.post('/simulate', async (req, res) => {
   try {
     const { processes, algorithm, timeQuantum, contextSwitchTime } = req.body;
 
+    if (!processes || !algorithm) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
     if (!algorithms[algorithm]) {
       return res.status(400).json({ error: 'Unsupported algorithm' });
     }
@@ -33,15 +38,16 @@ router.post('/simulate', async (req, res) => {
     const result = algorithms[algorithm](processes, timeQuantum, contextSwitchTime);
 
     // Save simulation to MongoDB
-    const simulation = new Simulation({
-      processes,
-      algorithm,
-      timeQuantum,
-      contextSwitchTime,
-      results: result,
-    });
-
-    await simulation.save();
+    if (typeof Simulation === 'function') {
+      const simulation = new Simulation({
+        processes,
+        algorithm,
+        timeQuantum,
+        contextSwitchTime,
+        results: result,
+      });
+      await simulation.save();
+    }
 
     res.json(result);
   } catch (error) {

@@ -1,11 +1,11 @@
 // FCFS Scheduling Algorithm
 function fcfs(processes) {
   // Sort by arrival time
-  processes.sort((a, b) => a.arrivalTime - b.arrivalTime);
-
+  processes = [...processes].sort((a, b) => a.arrivalTime - b.arrivalTime);
   let currentTime = 0;
   let schedule = [];
   let metrics = {};
+  let timeLog = [];
 
   for (let process of processes) {
     if (currentTime < process.arrivalTime) {
@@ -24,10 +24,19 @@ function fcfs(processes) {
       responseTime: start - process.arrivalTime,
     };
 
+    // Simple timeLog: one entry per process
+    timeLog.push({
+      time: start,
+      running: process.pid,
+      ready: processes.filter(p => p.arrivalTime <= start && p.pid !== process.pid && !metrics[p.pid]).map(p => p.pid),
+      blocked: [],
+      terminated: Object.keys(metrics).filter(pid => pid !== process.pid)
+    });
+
     currentTime = end;
   }
 
-  return { schedule, metrics };
+  return { schedule, metrics, timeLog };
 }
 
 module.exports = fcfs;

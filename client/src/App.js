@@ -18,23 +18,23 @@ function App() {
   const [error, setError] = useState('');
 
   // Handler to run the simulation
-  const handleSimulate = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      const response = await axios.post('/api/simulate', {
-        processes,
-        algorithm,
-        timeQuantum,
-      });
-      setResults(response.data);
-      setCurrentStep(0); // Reset step to start
-    } catch (err) {
-      setError('Simulation failed. Please check your inputs or try again.');
-      setResults(null);
-    }
-    setLoading(false);
-  };
+const handleSimulate = async () => {
+  setLoading(true);
+  setError('');
+  try {
+    const response = await axios.post('/api/simulate', {
+      processes,
+      algorithm,
+      timeQuantum,
+    });
+    setResults(response.data);
+    setCurrentStep(0);
+  } catch (err) {
+    setError('Simulation failed. Please check your inputs or try again.');
+    setResults(null);
+  }
+  setLoading(false);
+};
 
   // Step forward in the simulation timeline
   const handleStep = () => {
