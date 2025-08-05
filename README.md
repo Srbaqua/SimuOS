@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./client//public/logo_light.png" alt="SimuOS Logo" width="100"/>
+  <img src="./client//public/logo_dark.png" alt="SimuOS Logo" width="100"/>
 </p>
 
 <h1 align="center">SimuOS</h1>
