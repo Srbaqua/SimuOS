@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const simulationRoutes = require('./routes/simulation');
+const simulationRoutes = require('./routes/Simulation');
 require('dotenv').config();
 
 
