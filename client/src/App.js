@@ -39,7 +39,7 @@ function App() {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('/api/simulate', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/simulate`, {
         processes,
         algorithm,
         timeQuantum,
