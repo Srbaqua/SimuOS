@@ -14,10 +14,9 @@ app.use(cors({
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/simuos', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI);
+  
+
 
 // Use simulation routes
 app.use('/api', simulationRoutes);
