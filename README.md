@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://img.icons8.com/external-flat-icons-inmotus-design/100/000000/external-scheduler-automation-flat-icons-inmotus-design.png" alt="SimuOS Logo" width="100"/>
+  <img src="./client//public/logo_light.png" alt="SimuOS Logo" width="100"/>
 </p>
 
 <h1 align="center">SimuOS</h1>
