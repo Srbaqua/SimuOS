@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: 'https://your-frontend.vercel.app',
+  origin: 'https://simu-kgc3k9rfj-srbaquas-projects.vercel.app',
 }));
 app.use(express.json());
 
