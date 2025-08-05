@@ -6,7 +6,7 @@ import AlgorithmSelector from './components/AlgorithmSelector';
 import SimulationControls from './components/SimulationControls';
 import GanttChart from './components/GanttChart';
 import MetricsTable from './components/MetricsTable';
-import TimeLog from './components/Timelog'
+import TimeLog from './components/Time'
 import LiveBarChart from './components/LiveBarChart';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Timelog({ timeLog, currentStep }) {
+function Time({ timeLog, currentStep }) {
   if (!timeLog || timeLog.length === 0) return null;
   const state = timeLog[currentStep];
 
@@ -45,4 +45,4 @@ function Timelog({ timeLog, currentStep }) {
   );
 }
 
-export default Timelog;
+export default Time;
