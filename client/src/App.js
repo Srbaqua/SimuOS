@@ -1,13 +1,19 @@
-import './App.css'
-import React, { useState } from 'react';
+// Updated App.js
+import './App.css';
+import React, { useEffect, useState } from 'react';
 import ProcessInput from './components/ProcessInput';
 import AlgorithmSelector from './components/AlgorithmSelector';
 import SimulationControls from './components/SimulationControls';
 import GanttChart from './components/GanttChart';
 import MetricsTable from './components/MetricsTable';
-import TimeLog from './components/TimeLog';
+import TimeLog from './components/Timelog'
 import LiveBarChart from './components/LiveBarChart';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 import axios from 'axios';
+import About from './components/About';
+// import { useEffect } from 'react';
+
 
 function App() {
   const [processes, setProcesses] = useState([]);
@@ -17,6 +23,17 @@ function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [section, setSection] = useState('simulator');
+
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("darkMode") === "true";
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle('dark-mode', darkMode);
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
+
 
   const handleSimulate = async () => {
     setLoading(true);
@@ -55,48 +72,90 @@ function App() {
   };
 
   return (
-    <div style={{ maxWidth: 900, margin: "auto", padding: 20 }}>
-      <h1>CPU Scheduling Simulator</h1>
-      <ProcessInput processes={processes} setProcesses={setProcesses} />
-      <AlgorithmSelector
-        algorithm={algorithm}
-        setAlgorithm={setAlgorithm}
-        timeQuantum={timeQuantum}
-        setTimeQuantum={setTimeQuantum}
-      />
-      <SimulationControls
-        onSimulate={handleSimulate}
-        onStep={handleStep}
-        onReset={handleReset}
-        onPrevStep={handlePrevStep}
-      />
+    <div className="main-layout">
+      <nav className="navbar">
+  <div className="navbar-left">
+    <img
+      src={darkMode ? "/logo_dark.png" : "/logo_light.png"}
+      alt="SimuOS Logo"
+      className="navbar-logo"
+      style={{width:'80px',height:'60px'}}
+    />
+    
 
-      {loading && <div>Simulating...</div>}
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+  </div>
 
-      {results && (
-        <div style={{ marginTop: 30 }}>
-          <h2>Gantt Chart</h2>
-          <GanttChart schedule={results.schedule} />
+  <button
+    onClick={() => setDarkMode(prev => !prev)}
+    className="toggle-theme-btn"
+  >
+    {darkMode ? '🌙 Dark' : '☀️ Light'}
+  </button>
+</nav>
 
-          <h2>Metrics</h2>
-          <MetricsTable metrics={results.metrics} />
 
-          <h2>Step-through Simulation</h2>
-          <div style={{ marginBottom: 10 }}>
-            <button onClick={handlePrevStep} disabled={currentStep === 0}>Prev</button>
-            <span style={{ margin: '0 10px' }}>Time: {currentStep}</span>
-            <button
-              onClick={handleStep}
-              disabled={!results.timeLog || currentStep === results.timeLog.length - 1}
-            >Next</button>
-          </div>
-          <TimeLog timeLog={results.timeLog} currentStep={currentStep} />
+      <div className="app-body">
+        <aside className="sidebar">
+          <ul>
+            <li onClick={() => setSection('simulator')} data-tip="Enter process list and parameters">Simulator</li>
+            <li onClick={() => setSection('metrics')} data-tip="View average waiting, turnaround time, etc.">Metrics</li>
+            <li onClick={() => setSection('about')} data-tip="How this tool works">About</li>
+          </ul>
+        </aside>
 
-          <h2>Live Process State Bar Chart</h2>
-          <LiveBarChart timeLog={results.timeLog} currentStep={currentStep} />
-        </div>
-      )}
+        <main className="container">
+          {section === 'simulator' && (
+            <>
+              <h1>CPU Scheduling Simulator</h1>
+              <ProcessInput processes={processes} setProcesses={setProcesses} />
+              <AlgorithmSelector
+                algorithm={algorithm}
+                setAlgorithm={setAlgorithm}
+                timeQuantum={timeQuantum}
+                setTimeQuantum={setTimeQuantum}
+              />
+              <SimulationControls
+                onSimulate={handleSimulate}
+                onStep={handleStep}
+                onReset={handleReset}
+                onPrevStep={handlePrevStep}
+              />
+              {loading && <div className="loading-message">Simulating...</div>}
+              {error && <div className="error-message">{error}</div>}
+              {results && (
+                <>
+                  <h2>Gantt Chart</h2>
+                  <GanttChart schedule={results.schedule} />
+                  <h2>Metrics</h2>
+                  <MetricsTable metrics={results.metrics} />
+
+                  <h2>Step-through Simulation</h2>
+                  <div style={{ marginBottom: 10 }}>
+                    <button onClick={handlePrevStep} disabled={currentStep === 0}>Prev</button>
+                    <span style={{ margin: '0 10px' }}>Time: {currentStep}</span>
+                    <button onClick={handleStep} disabled={!results.timeLog || currentStep === results.timeLog.length - 1}>Next</button>
+                  </div>
+                  <TimeLog timeLog={results.timeLog} currentStep={currentStep} />
+
+                  <LiveBarChart timeLog={results.timeLog} currentStep={currentStep} />
+                </>
+              )}
+            </>
+          )}
+
+          {section === 'metrics' && results && (
+            <>
+              <h1>Metrics</h1>
+              <MetricsTable metrics={results.metrics} />
+            </>
+          )}
+
+          {section === 'about' && <About />}
+
+        </main>
+      </div>
+
+      <Tooltip place="right" type="dark" effect="solid" multiline={true} />
     </div>
   );
 }
