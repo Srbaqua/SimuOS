@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const simulationRoutes = require('./routes/Simulation');
+const simulationRoutes = require('./routes/simulation');
 require('dotenv').config();
 
 
@@ -9,7 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: 'https://simu-kgc3k9rfj-srbaquas-projects.vercel.app',
+ origin: ['http://localhost:5000', 'https://simu-kgc3k9rfj-srbaquas-projects.vercel.app'],
+
 }));
 app.use(express.json());
 
